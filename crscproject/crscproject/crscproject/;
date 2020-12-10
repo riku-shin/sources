@@ -1,0 +1,44 @@
+import MySQLdb
+from sklearn.feature_extraction.text import CountVectorizer
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+params = {
+    'host': 'localhost',
+    'db': 'csasdb',
+    'user': 'csasmaster',
+    'passwd': 'password',
+    'charset': 'utf8mb4',
+}
+conn = MySQLdb.connect(**params)
+cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+def get_articles():
+    cursor.execute('SELECT * FROM `Articles`')
+    for row in cursor:
+        yield row
+
+def weighting():
+    print('weighting')
+    texts, labels = [], []
+    articles = get_articles()
+    for (i, article) in enumerate(articles):
+        text = article['text']
+        texts.append(text)
+        labels.append(i)
+    len(texts), len(labels)
+
+
+def get_TagMaps():
+    cursor.execute('SELECT * FROM `TagMaps`')
+    for row in cursor:
+        yield row
+
+#vectorizer = CountVectorizer()
+#x = vectorizer.fit_transform(corpus)
+
+
+weighting()

@@ -1,0 +1,10 @@
+<p class="menu-label">Search</p>
+<form action="{%url 'article:article_list'%}" method="GET">
+	<div class="field">
+		<div class="control">
+			{{form.key_word}}
+		</div>
+	</div>
+
+	<button class="button is-primary" type="submit">Search</button>
+</form>

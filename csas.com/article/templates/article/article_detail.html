@@ -1,0 +1,9 @@
+{%extends 'article/base.html'%}
+
+{%block content%}
+	<article>
+		<h1>{{article.store_name}}</h1>
+		<p>{{article.title}}</p>
+		{{article.text|linebreaks}}
+	</article>
+{%endblock%}

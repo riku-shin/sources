@@ -1,0 +1,1 @@
+Epoch=5355の時点で、val_lossは最低値を、val_accuracyは最高値を記録した。

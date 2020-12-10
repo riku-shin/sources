@@ -1,0 +1,36 @@
+from datetime import datetime as dt
+import re
+import csv
+
+def it(label):
+    url = response.url
+    date = response.css('#update').xpath('string()').get()
+    l = re.findall('\d+', date)
+    date = '-'.join(l)
+    updated = dt.strptime(date, '%Y-%m-%d-%H-%M')
+    title = response.css('h1').xpath('string()').get().replace('　', ' ').strip()
+    textlist = response.css('p').xpath('string()').getall()
+    del textlist[-3:]
+    text  ''.join(textlist)
+    text = text.replace('　', ' ').strip()
+    record = [label, 'itmedia', title, url, date, text]
+    with open('/vagrant/memo/evaluationDatas.txt', mode='a') as f:
+        print(*record, sep='　', file=f)
+
+def ipa(label):
+    url = response.url
+    date = response.xpath('//*[@id="ipar_main"]/div/div/div[1]/p[1]/text()').get().strip()
+    date = re.findall(r'\d+', date)
+    date = '-'.join(date)
+    title = response.css('title').xpath('string()').get().replace('　', ' ').strip()
+    text = response.css('body').xpath('string()').get().strip()
+    record = [label, 'ipa', title, url, date, text]
+    with open('/vagrant/memo/evaluationDatas.txt', mode='a') as f:
+        print(*record, sep='　', file=f)
+
+def check(url):
+    reader = csv.reader('evaluationDatas_org.txt', delimiter='　')
+    for row in reader:
+        if row[3] == url:
+            return False
+    return True
